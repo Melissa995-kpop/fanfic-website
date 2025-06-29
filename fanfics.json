@@ -1,1 +1,24 @@
-[]
+[
+    {
+        "id": 1751211373,
+        "title": "Chan and Meliss",
+        "author": "Melissa",
+        "description": "Under the rain",
+        "content": "they r so quiet and secretly...",
+        "category": "Romance",
+        "likes": 0,
+        "comments": [],
+        "image": "images/under_the_rain.png"
+    },
+    {
+        "id": 1751216357,
+        "title": "Fri(end)s",
+        "author": "Melissa",
+        "description": "Childhood friends✨✨🥹",
+        "content": "they were so nice close friends and after 10 years they started hate each other... ",
+        "category": "Uncategorized",
+        "likes": 0,
+        "comments": [],
+        "image": "images/childhood_friends.png"
+    }
+]

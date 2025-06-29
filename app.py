@@ -1,7 +1,7 @@
 from flask import Flask, render_template, request, redirect
 import json
 import time
-import os  # <<=== YANGI: Render portini o‘qish uchun kerak
+import os  # Render portini olish uchun
 
 app = Flask(__name__)
 SECRET_PASSWORD = "m_meliss979"
@@ -51,7 +51,8 @@ def add_fanfic():
             "content": request.form['content'],
             "category": request.form.get('category', 'Uncategorized'),
             "likes": 0,
-            "comments": []
+            "comments": [],
+            "image": request.form.get('image', '') or ""  # Rasm URL manzili, bo'sh bo'lsa ""
         }
         fanfics = load_fanfics()
         fanfics.append(new_fanfic)
@@ -115,6 +116,7 @@ def edit_fanfic(fanfic_id):
         selected_fanfic['description'] = request.form['description']
         selected_fanfic['content'] = request.form['content']
         selected_fanfic['category'] = request.form.get('category', 'Uncategorized')
+        selected_fanfic['image'] = request.form.get('image', '') or ""  # Yangilash
         save_fanfics(fanfics)
         return redirect(f'/fanfic/{fanfic_id}')
 
@@ -132,10 +134,13 @@ def admin_panel():
 
     return render_template('admin_login.html')
 
-# 🔥 Render uchun to‘g‘ri portni ochamiz:
+# Render uchun portni ochamiz
 if __name__ == '__main__':
     port = int(os.environ.get("PORT", 5000))
-    app.run(host='0.0.0.0', port=port)
+    app.run(host='0.0.0.0', port=port, debug=True)
+
+
+
 
 
 

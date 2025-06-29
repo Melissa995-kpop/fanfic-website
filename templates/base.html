@@ -5,11 +5,55 @@
     <title>Where dreams meet paper</title>
     <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
     <link href="https://fonts.googleapis.com/css2?family=Josefin+Sans&display=swap" rel="stylesheet">
+    <style>
+        /* Kichik emojilar uchun CSS */
+        .falling-emoji {
+            position: fixed;
+            top: -10px;
+            font-size: 16px;
+            opacity: 0.8;
+            animation: fall linear infinite;
+            pointer-events: none;
+            z-index: 9999;
+        }
+
+        @keyframes fall {
+            0% {
+                transform: translateY(0);
+                opacity: 0.5;
+            }
+            100% {
+                transform: translateY(100vh);
+                opacity: 0;
+            }
+        }
+
+        /* Dark Mode tugmasi */
+        .dark-toggle {
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            background-color: #6c63ff;
+            color: white;
+            border: none;
+            padding: 10px 14px;
+            border-radius: 12px;
+            cursor: pointer;
+            z-index: 10000;
+            font-size: 14px;
+            font-weight: bold;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+        }
+
+        .dark-toggle:hover {
+            background-color: #574b90;
+        }
+    </style>
 </head>
-<body>
+<body id="main-body">
     <!-- FON MUSIQA -->
     <audio autoplay loop>
-      <source src="{{ url_for('static', filename='bg-music-short.mp3') }}" type="audio/mpeg">
+        <source src="{{ url_for('static', filename='bg-music-short.mp3') }}" type="audio/mpeg">
     </audio>
 
     <!-- Navbar -->
@@ -31,7 +75,50 @@
     <footer>
         <p>© 2025 Melissa’s Fanfic World. Made with 🫶</p>
     </footer>
+
+    <!-- EMOJI YOG'ILISHI -->
+    <script>
+        document.addEventListener("DOMContentLoaded", function () {
+            const emojis = ["🌸", "✨", "💖", "🌟", "💫"];
+            const count = 25;
+
+            for (let i = 0; i < count; i++) {
+                let emoji = document.createElement("div");
+                emoji.classList.add("falling-emoji");
+                emoji.innerText = emojis[Math.floor(Math.random() * emojis.length)];
+                emoji.style.left = Math.random() * 100 + "vw";
+                emoji.style.animationDuration = 8 + Math.random() * 5 + "s";
+                emoji.style.animationDelay = Math.random() * 5 + "s";
+                document.body.appendChild(emoji);
+            }
+
+            // Dark mode ni avvalgi tanlovga qarab yuklash
+            const isDark = localStorage.getItem("dark-mode") === "true";
+            if (isDark) {
+                document.getElementById("main-body").classList.add("dark-mode");
+                document.querySelector(".dark-toggle").textContent = "☀️ light";
+            }
+        });
+    </script>
+
+    <!-- DARK MODE tugmasi va funksiyasi -->
+    <button class="dark-toggle" onclick="toggleDarkMode()">🌙 dark</button>
+    <script>
+        function toggleDarkMode() {
+            const body = document.getElementById('main-body');
+            const btn = document.querySelector('.dark-toggle');
+            body.classList.toggle('dark-mode');
+            const isDark = body.classList.contains('dark-mode');
+            btn.textContent = isDark ? "☀️ light" : "🌙 dark";
+            localStorage.setItem("dark-mode", isDark);
+        }
+    </script>
 </body>
 </html>
+
+
+
+
+
 
 

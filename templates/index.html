@@ -8,6 +8,11 @@
     {% if fanfics %}
         {% for fanfic in fanfics %}
             <div class="fanfic-card">
+                <!-- Fanfic rasmi -->
+                {% if fanfic.image %}
+                <img src="{{ url_for('static', filename=fanfic.image) }}" alt="Fanfic rasmi" style="max-width:100%; border-radius: 12px; margin-bottom: 15px;">
+                {% endif %}
+
                 <h3>{{ fanfic.title }}</h3>
                 <p><strong>Author:</strong> {{ fanfic.author }}</p>
                 <p>{{ fanfic.description }}</p>
@@ -19,6 +24,7 @@
     {% endif %}
 </div>
 {% endblock %}
+
 
 
 

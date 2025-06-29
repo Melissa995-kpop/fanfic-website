@@ -4,6 +4,12 @@
 <div class="fanfic-container">
     <h1>{{ fanfic.title }}</h1>
     <p><strong>Author:</strong> {{ fanfic.author }}</p>
+
+    <!-- Agar rasm mavjud bo‘lsa, uni ko‘rsatamiz -->
+    {% if fanfic.image %}
+    <img src="{{ url_for('static', filename=fanfic.image) }}" alt="Fanfic rasmi" style="max-width:100%; border-radius: 12px; margin: 20px 0;">
+    {% endif %}
+
     <p>{{ fanfic.content }}</p>
 
     <!-- Like tugmasi -->
@@ -44,6 +50,7 @@
     </div>
 </div>
 {% endblock %}
+
 
 
 

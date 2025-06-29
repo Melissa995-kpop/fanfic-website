@@ -16,6 +16,10 @@
         <label>Full Text:</label>
         <textarea name="content" rows="8" required>{{ fanfic.content }}</textarea>
 
+        <!-- Rasm manzili uchun maydon -->
+        <label>Image path (relative to static folder):</label>
+        <input type="text" name="image" value="{{ fanfic.image or '' }}" placeholder="images/your_image.png">
+
         <label>Password (for security):</label>
         <input type="password" name="password" placeholder="Enter your password" required>
 
@@ -23,3 +27,4 @@
     </form>
 </div>
 {% endblock %}
+

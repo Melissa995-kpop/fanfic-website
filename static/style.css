@@ -1,144 +1,51 @@
-/* Umumiy tanasi */
-body {
-    background: linear-gradient(to right, #fef6ff, #e8f0ff);
-    font-family: 'Josefin Sans', sans-serif;
-    margin: 0;
-    padding: 0;
-    color: #333;
+/* 🌙 DARK MODE STILI */
+body.dark-mode {
+    background: linear-gradient(to right, #1a1a2e, #16213e);
+    color: #f0f0f0;
 }
 
-/* Ichki container */
-.container {
-    max-width: 900px;
-    margin: 0 auto;
-    padding: 20px;
+body.dark-mode .container {
+    background-color: transparent;
 }
 
-/* Sarlavhalar */
-h1, h2, h3 {
-    color: #5b4b8a;
-    margin-top: 0;
+body.dark-mode h1,
+body.dark-mode h2,
+body.dark-mode h3 {
+    color: #dcd6f7;
 }
 
-/* Linklar */
-a {
-    color: #6c63ff;
-    text-decoration: none;
-    font-weight: bold;
+body.dark-mode a {
+    color: #9aafff;
 }
 
-a:hover {
-    text-decoration: underline;
+body.dark-mode button {
+    background-color: #393e9f;
 }
 
-/* Tugmalar */
-button {
-    background-color: #6c63ff;
-    color: white;
-    border: none;
-    padding: 10px 16px;
-    border-radius: 10px;
-    cursor: pointer;
-    font-weight: bold;
-    transition: 0.3s;
+body.dark-mode button:hover {
+    background-color: #2f357a;
 }
 
-button:hover {
-    background-color: #574b90;
+body.dark-mode input,
+body.dark-mode textarea {
+    background-color: #2f2f44;
+    color: #f0f0f0;
+    border: 1px solid #555;
 }
 
-/* Kiritish maydonlari */
-input, textarea {
-    width: 100%;
-    padding: 10px;
-    margin-top: 8px;
-    border: 1px solid #ccc;
-    border-radius: 10px;
-    font-size: 16px;
-    resize: vertical;
-    font-family: 'Josefin Sans', sans-serif;
+body.dark-mode .fanfic-card {
+    background-color: #25243a;
+    border-left-color: #aa9cff;
+    box-shadow: 0 4px 20px rgba(255, 255, 255, 0.03);
 }
 
-/* Fanfic kartalari */
-.fanfic-card {
-    background-color: #fff;
-    border-left: 8px solid #d8b4f8;
-    border-radius: 16px;
-    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.05);
-    padding: 20px;
-    margin: 20px 0;
-    transition: transform 0.2s ease;
+body.dark-mode .navbar {
+    background-color: #1a1a2e;
+    border-bottom: 1px solid #333;
 }
 
-.fanfic-card:hover {
-    transform: scale(1.01);
-    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.1);
-}
-
-/* Navbar */
-.navbar {
-    background-color: #fff;
-    padding: 12px 20px;
-    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.05);
-    display: flex;
-    gap: 20px;
-    justify-content: center;
-    font-size: 16px;
-    border-bottom: 1px solid #eee;
-    flex-wrap: wrap;
-}
-
-/* Footer */
-footer {
-    text-align: center;
-    padding: 20px;
-    font-size: 14px;
-    background-color: #f8f8ff;
-    color: #888;
-    margin-top: 50px;
-    border-top: 1px solid #ddd;
-}
-
-/* RESPONSIVE dizayn */
-@media (max-width: 768px) {
-    .container {
-        padding: 15px;
-    }
-
-    h1 {
-        font-size: 26px;
-    }
-
-    h2 {
-        font-size: 22px;
-    }
-
-    h3 {
-        font-size: 20px;
-    }
-
-    input, textarea {
-        font-size: 16px;
-    }
-
-    button {
-        width: 100%;
-        font-size: 17px;
-        padding: 12px;
-    }
-
-    .navbar {
-        flex-direction: column;
-        align-items: center;
-        gap: 12px;
-    }
-
-    .fanfic-card {
-        padding: 18px;
-    }
-
-    .fanfic-card a {
-        display: block;
-        margin-top: 10px;
-    }
+body.dark-mode footer {
+    background-color: #11182a;
+    color: #bbb;
+    border-top: 1px solid #333;
 }
