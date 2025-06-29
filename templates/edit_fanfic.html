@@ -1,0 +1,25 @@
+{% extends "base.html" %}
+
+{% block content %}
+<div class="container">
+    <h2>Edit Fanfic 📝</h2>
+    <form method="POST">
+        <label>Title:</label>
+        <input type="text" name="title" value="{{ fanfic.title }}" required>
+
+        <label>Author:</label>
+        <input type="text" name="author" value="{{ fanfic.author }}" required>
+
+        <label>Description:</label>
+        <textarea name="description" rows="3" required>{{ fanfic.description }}</textarea>
+
+        <label>Full Text:</label>
+        <textarea name="content" rows="8" required>{{ fanfic.content }}</textarea>
+
+        <label>Password (for security):</label>
+        <input type="password" name="password" placeholder="Enter your password" required>
+
+        <button type="submit">Save Changes</button>
+    </form>
+</div>
+{% endblock %}

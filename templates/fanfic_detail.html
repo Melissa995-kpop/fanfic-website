@@ -1,0 +1,49 @@
+{% extends "base.html" %}
+
+{% block content %}
+<div class="fanfic-container">
+    <h1>{{ fanfic.title }}</h1>
+    <p><strong>Author:</strong> {{ fanfic.author }}</p>
+    <p>{{ fanfic.content }}</p>
+
+    <!-- Like tugmasi -->
+    <form action="/like/{{ fanfic.id }}" method="POST" style="margin-top: 20px;">
+        <button type="submit">❤️ Like</button> {{ fanfic.likes }} likes
+    </form>
+
+    <!-- Edit va Delete tugmalari -->
+    <div style="margin-top: 30px;">
+        <h3>Admin Controls ⚙️</h3>
+        <form action="/edit/{{ fanfic.id }}" method="GET" style="display:inline;">
+            <button type="submit">✏️ Edit</button>
+        </form>
+        <form action="/delete/{{ fanfic.id }}" method="POST" style="display:inline; margin-left:10px;">
+            <input type="password" name="password" placeholder="Password" required>
+            <button type="submit">🗑️ Delete</button>
+        </form>
+    </div>
+
+    <!-- Comment form -->
+    <div style="margin-top: 50px;">
+        <h3>Comments 💬</h3>
+        <form action="/comment/{{ fanfic.id }}" method="POST">
+            <textarea name="comment" rows="3" placeholder="Write your comment..." required></textarea><br><br>
+            <button type="submit">Post Comment</button>
+        </form>
+
+        <!-- Commentlar ro'yxati -->
+        {% if fanfic.comments %}
+        <ul style="margin-top: 20px;">
+            {% for comment in fanfic.comments %}
+            <li>{{ comment }}</li>
+            {% endfor %}
+        </ul>
+        {% else %}
+        <p style="margin-top: 10px;">No comments yet 🫧</p>
+        {% endif %}
+    </div>
+</div>
+{% endblock %}
+
+
+

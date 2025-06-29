@@ -1,0 +1,26 @@
+{% extends "base.html" %}
+
+{% block content %}
+<div class="container">
+    <h1>Welcome to Melissa's Fanfic World 🌌</h1>
+    <p>Here you can read calming and romantic K-pop fanfics with soft background music.</p>
+
+    {% if fanfics %}
+        {% for fanfic in fanfics %}
+            <div class="fanfic-card">
+                <h3>{{ fanfic.title }}</h3>
+                <p><strong>Author:</strong> {{ fanfic.author }}</p>
+                <p>{{ fanfic.description }}</p>
+                <a href="/fanfic/{{ fanfic.id }}">Read More →</a>
+            </div>
+        {% endfor %}
+    {% else %}
+        <p>No fanfics found.</p>
+    {% endif %}
+</div>
+{% endblock %}
+
+
+
+
+
