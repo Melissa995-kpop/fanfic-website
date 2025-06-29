@@ -1,6 +1,7 @@
 from flask import Flask, render_template, request, redirect
 import json
 import time
+import os  # <<=== YANGI: Render portini o‘qish uchun kerak
 
 app = Flask(__name__)
 SECRET_PASSWORD = "m_meliss979"
@@ -20,8 +21,6 @@ def save_fanfics(fanfics):
 def index():
     fanfics = load_fanfics()
     return render_template('index.html', fanfics=fanfics)
-
-
 
 # About sahifa
 @app.route('/about')
@@ -133,9 +132,11 @@ def admin_panel():
 
     return render_template('admin_login.html')
 
-# Serverni ishga tushirish
+# 🔥 Render uchun to‘g‘ri portni ochamiz:
 if __name__ == '__main__':
-    app.run(debug=True)
+    port = int(os.environ.get("PORT", 5000))
+    app.run(host='0.0.0.0', port=port)
+
 
 
 
