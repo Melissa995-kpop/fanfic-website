@@ -12,10 +12,11 @@
 
     <p>{{ fanfic.content }}</p>
 
-    <!-- Like tugmasi -->
-    <form action="/like/{{ fanfic.id }}" method="POST" style="margin-top: 20px;">
-        <button type="submit">❤️ Like</button> {{ fanfic.likes }} likes
-    </form>
+    <!-- ✅ LIKE tugmasi AJAX bilan (JavaScript) -->
+    <div style="margin-top: 20px;">
+        <button id="like-btn">❤️ Like</button>
+        <span id="like-count">{{ fanfic.likes }} likes</span>
+    </div>
 
     <!-- Edit va Delete tugmalari -->
     <div style="margin-top: 30px;">
@@ -37,7 +38,6 @@
             <button type="submit">Post Comment</button>
         </form>
 
-        <!-- Commentlar ro'yxati -->
         {% if fanfic.comments %}
         <ul style="margin-top: 20px;">
             {% for comment in fanfic.comments %}
@@ -49,8 +49,25 @@
         {% endif %}
     </div>
 </div>
+
+<!-- ✅ LIKE tugmasi uchun JavaScript kod -->
+<script>
+document.getElementById("like-btn").addEventListener("click", function () {
+    fetch("/like/{{ fanfic.id }}", {
+        method: "POST"
+    })
+    .then(response => response.text())
+    .then(data => {
+        if (data === "Liked") {
+            let likeCount = document.getElementById("like-count");
+            let current = parseInt(likeCount.textContent);
+            likeCount.textContent = (current + 1) + " likes";
+        } else if (data === "Already liked") {
+            alert("You already liked this fanfic 💜");
+        }
+    });
+});
+</script>
 {% endblock %}
-
-
 
 

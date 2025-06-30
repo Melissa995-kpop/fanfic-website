@@ -5,8 +5,27 @@
     <title>Where dreams meet paper</title>
     <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
     <link href="https://fonts.googleapis.com/css2?family=Josefin+Sans&display=swap" rel="stylesheet">
+
+    <!-- 🔍 SEO va Ijtimoiy tarmoq uchun meta teglar -->
+    <meta name="description" content="Melissa's dreamy fanfic world with romantic K-pop stories, soft music and beautiful designs.">
+    <meta name="keywords" content="fanfic, K-pop, Stray Kids, romance, Melissa, Bang Chan, fan fiction">
+    <meta name="author" content="Melissa">
+
+    <!-- 🌐 Open Graph (Facebook, Instagram) -->
+    <meta property="og:title" content="Melissa's Fanfic World 🌌">
+    <meta property="og:description" content="Romantic K-pop fanfics with calming music and dreamy visuals.">
+    <meta property="og:image" content="{{ url_for('static', filename='images/preview.jpg') }}">
+    <meta property="og:url" content="https://melissafanfic.onrender.com"> <!-- o'zingning to'g'ri URL'ingni yoz -->
+    <meta property="og:type" content="website">
+
+    <!-- 🐦 Twitter Card -->
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="Melissa's Fanfic World 🌌">
+    <meta name="twitter:description" content="Read dreamy fanfics with soft background music.">
+    <meta name="twitter:image" content="{{ url_for('static', filename='images/preview.jpg') }}">
+
+    <!-- Qo'shimcha CSS dark-mode va emoji uchun -->
     <style>
-        /* Kichik emojilar uchun CSS */
         .falling-emoji {
             position: fixed;
             top: -10px;
@@ -28,7 +47,6 @@
             }
         }
 
-        /* Dark Mode tugmasi */
         .dark-toggle {
             position: fixed;
             bottom: 20px;
@@ -76,7 +94,7 @@
         <p>© 2025 Melissa’s Fanfic World. Made with 🫶</p>
     </footer>
 
-    <!-- EMOJI YOG'ILISHI -->
+    <!-- KICHIK EMOJI YOG'ILISHI -->
     <script>
         document.addEventListener("DOMContentLoaded", function () {
             const emojis = ["🌸", "✨", "💖", "🌟", "💫"];
@@ -92,7 +110,6 @@
                 document.body.appendChild(emoji);
             }
 
-            // Dark mode ni avvalgi tanlovga qarab yuklash
             const isDark = localStorage.getItem("dark-mode") === "true";
             if (isDark) {
                 document.getElementById("main-body").classList.add("dark-mode");
@@ -101,7 +118,7 @@
         });
     </script>
 
-    <!-- DARK MODE tugmasi va funksiyasi -->
+    <!-- DARK MODE TUGMASI -->
     <button class="dark-toggle" onclick="toggleDarkMode()">🌙 dark</button>
     <script>
         function toggleDarkMode() {
@@ -115,6 +132,7 @@
     </script>
 </body>
 </html>
+
 
 
 

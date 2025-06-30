@@ -7,6 +7,7 @@
         "content": "they r so quiet and secretly...",
         "category": "Romance",
         "likes": 0,
+        "liked_by": [],
         "comments": [],
         "image": "images/under_the_rain.png"
     },
@@ -18,6 +19,7 @@
         "content": "they were so nice close friends and after 10 years they started hate each other... ",
         "category": "Uncategorized",
         "likes": 0,
+        "liked_by": [],
         "comments": [],
         "image": "images/childhood_friends.png"
     }
