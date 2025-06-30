@@ -1,0 +1,20 @@
+{% extends "base.html" %}
+{% block title %}Top Liked Fanfics 🔥{% endblock %}
+
+{% block content %}
+  <h2 style="text-align:center; margin-bottom:1rem;">🔥 Most Liked Fanfics</h2>
+  <div style="display: grid; gap: 1.5rem; max-width: 900px; margin: 0 auto;">
+    {% for fanfic in fanfics %}
+      <div style="border: 1px solid #ccc; padding: 1rem; border-radius: 8px; background-color: white;" class="{% if loop.index <= 3 %}top-fanfic{% endif %}">
+        <h3><a href="{{ url_for('fanfic_detail', fanfic_id=fanfic.id) }}">{{ fanfic.title }}</a></h3>
+        <p><strong>Author:</strong> {{ fanfic.author }}</p>
+        <p><strong>Likes:</strong> ❤️ {{ fanfic.likes }}</p>
+        <p>{{ fanfic.description }}</p>
+      </div>
+    {% else %}
+      <p>No fanfics yet.</p>
+    {% endfor %}
+  </div>
+{% endblock %}
+
+

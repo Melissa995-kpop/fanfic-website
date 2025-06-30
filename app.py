@@ -20,6 +20,12 @@ def index():
     trending_fanfics = sorted(fanfics, key=lambda x: x.get("likes", 0), reverse=True)[:5]
     return render_template('index.html', fanfics=fanfics, trending_fanfics=trending_fanfics)
 
+@app.route('/top-liked')
+def top_liked():
+    fanfics = load_fanfics()
+    sorted_fanfics = sorted(fanfics, key=lambda x: x.get("likes", 0), reverse=True)
+    return render_template('top_liked.html', fanfics=sorted_fanfics)
+
 @app.route('/about')
 def about():
     return render_template('about.html')
@@ -137,3 +143,4 @@ def admin_panel():
 if __name__ == '__main__':
     port = int(os.environ.get("PORT", 5000))
     app.run(host='0.0.0.0', port=port, debug=True)
+

@@ -1,234 +1,259 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0"> <!-- ✅ Mobilga mos -->
-    <title>Where dreams meet paper</title>
-    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
-    <link href="https://fonts.googleapis.com/css2?family=Josefin+Sans&display=swap" rel="stylesheet">
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>{% block title %}Melissa's Fanfic World{% endblock %}</title>
+  <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}" />
+  <link href="https://fonts.googleapis.com/css2?family=Josefin+Sans&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css" />
 
-    <!-- ✅ Swiper CSS -->
-    <link
-      rel="stylesheet"
-      href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css"
-    />
+  <!-- SEO -->
+  <meta name="description" content="Melissa's dreamy fanfic world with romantic K-pop stories, soft music and beautiful designs.">
+  <meta name="keywords" content="fanfic, K-pop, Stray Kids, romance, Melissa, Bang Chan, fan fiction">
+  <meta name="author" content="Melissa">
 
-    <!-- 🔍 SEO va Ijtimoiy tarmoq uchun meta teglar -->
-    <meta name="description" content="Melissa's dreamy fanfic world with romantic K-pop stories, soft music and beautiful designs.">
-    <meta name="keywords" content="fanfic, K-pop, Stray Kids, romance, Melissa, Bang Chan, fan fiction">
-    <meta name="author" content="Melissa">
+  <!-- Open Graph -->
+  <meta property="og:title" content="Melissa's Fanfic World 🌌">
+  <meta property="og:description" content="Romantic K-pop fanfics with calming music and dreamy visuals.">
+  <meta property="og:image" content="{{ url_for('static', filename='images/preview.jpg') }}">
+  <meta property="og:url" content="https://melissafanfic.onrender.com">
+  <meta property="og:type" content="website">
 
-    <!-- 🌐 Open Graph (Facebook, Instagram) -->
-    <meta property="og:title" content="Melissa's Fanfic World 🌌">
-    <meta property="og:description" content="Romantic K-pop fanfics with calming music and dreamy visuals.">
-    <meta property="og:image" content="{{ url_for('static', filename='images/preview.jpg') }}">
-    <meta property="og:url" content="https://melissafanfic.onrender.com">
-    <meta property="og:type" content="website">
+  <!-- Twitter -->
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="Melissa's Fanfic World 🌌">
+  <meta name="twitter:description" content="Read dreamy fanfics with soft background music.">
+  <meta name="twitter:image" content="{{ url_for('static', filename='images/preview.jpg') }}">
 
-    <!-- 🕎 Twitter Card -->
-    <meta name="twitter:card" content="summary_large_image">
-    <meta name="twitter:title" content="Melissa's Fanfic World 🌌">
-    <meta name="twitter:description" content="Read dreamy fanfics with soft background music.">
-    <meta name="twitter:image" content="{{ url_for('static', filename='images/preview.jpg') }}">
+  <style>
+    body {
+      font-family: 'Josefin Sans', sans-serif;
+      margin: 0;
+      padding: 0;
+      background-color: #fdfdfd;
+      transition: background 0.3s ease, color 0.3s ease;
+    }
 
-    <!-- Qo'shimcha CSS dark-mode va emoji uchun -->
-    <style>
-        .falling-emoji {
-            position: fixed;
-            top: -10px;
-            font-size: 16px;
-            opacity: 0.8;
-            animation: fall linear infinite;
-            pointer-events: none;
-            z-index: 9999;
-        }
+    body.dark-mode {
+      background-color: #121212;
+      color: #e0e0e0;
+    }
 
-        @keyframes fall {
-            0% { transform: translateY(0); opacity: 0.5; }
-            100% { transform: translateY(100vh); opacity: 0; }
-        }
+    .navbar {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 1rem 1.5rem;
+      background: #111;
+      color: white;
+    }
 
-        .dark-toggle {
-            position: fixed;
-            bottom: 20px;
-            right: 20px;
-            background-color: #6c63ff;
-            color: white;
-            border: none;
-            padding: 10px 14px;
-            border-radius: 12px;
-            cursor: pointer;
-            z-index: 10000;
-            font-size: 14px;
-            font-weight: bold;
-            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
-        }
+    .logo {
+      font-weight: bold;
+      font-size: 1.4rem;
+    }
 
-        .dark-toggle:hover { background-color: #574b90; }
+    .nav-links {
+      list-style: none;
+      display: flex;
+      gap: 1rem;
+    }
 
-        /* ✅ Mobilga moslashtirilgan nav va footer */
-        .navbar {
-            display: flex;
-            flex-wrap: wrap;
-            gap: 10px;
-            justify-content: center;
-            padding: 15px;
-            background-color: #fff;
-            border-bottom: 1px solid #eee;
-        }
+    .nav-links a {
+      color: white;
+      text-decoration: none;
+      font-weight: bold;
+    }
 
-        .navbar a {
-            text-decoration: none;
-            color: #333;
-            font-weight: bold;
-        }
+    .menu-toggle {
+      display: none;
+      font-size: 2rem;
+      cursor: pointer;
+    }
 
-        footer {
-            text-align: center;
-            padding: 20px;
-            font-size: 14px;
-            background-color: #f9f9f9;
-        }
+    @media (max-width: 768px) {
+      .menu-toggle {
+        display: block;
+      }
 
-        @media (max-width: 768px) {
-            .navbar {
-                flex-direction: column;
-                align-items: center;
-            }
-            .container {
-                padding: 10px;
-            }
-            .dark-toggle {
-                bottom: 15px;
-                right: 15px;
-                padding: 8px 12px;
-                font-size: 13px;
-            }
-            footer {
-                padding: 15px;
-                font-size: 13px;
-            }
-        }
+      .nav-links {
+        display: none;
+        flex-direction: column;
+        gap: 1rem;
+        background: #222;
+        padding: 1rem;
+        position: absolute;
+        top: 60px;
+        right: 10px;
+        z-index: 1000;
+        border-radius: 0.5rem;
+      }
 
-        /* Swiper styles */
-        .swiper {
-            width: 100%;
-            padding: 30px 0;
-        }
+      .nav-links.show {
+        display: flex;
+      }
+    }
 
-        .swiper-slide {
-            display: flex;
-            justify-content: center;
-        }
+    footer {
+      text-align: center;
+      padding: 20px;
+      font-size: 14px;
+      background-color: #f9f9f9;
+      color: #555;
+    }
 
-        .swiper-button-next,
-        .swiper-button-prev {
-            color: #5c67f2;
-        }
+    .dark-toggle {
+      position: fixed;
+      bottom: 20px;
+      right: 20px;
+      background-color: #6c63ff;
+      color: white;
+      border: none;
+      padding: 10px 14px;
+      border-radius: 12px;
+      cursor: pointer;
+      z-index: 10000;
+      font-size: 14px;
+      font-weight: bold;
+    }
 
-        .swiper-pagination-bullet {
-            background-color: #5c67f2;
-        }
-    </style>
+    .falling-emoji {
+      position: fixed;
+      top: -10px;
+      font-size: 16px;
+      opacity: 0.8;
+      animation: fall linear infinite;
+      pointer-events: none;
+      z-index: 9999;
+    }
+
+    @keyframes fall {
+      0% { transform: translateY(0); opacity: 0.5; }
+      100% { transform: translateY(100vh); opacity: 0; }
+    }
+
+    #scrollBtn {
+      display: none;
+      position: fixed;
+      bottom: 80px;
+      right: 20px;
+      z-index: 9999;
+      font-size: 18px;
+      border: none;
+      background-color: #6c63ff;
+      color: white;
+      cursor: pointer;
+      padding: 12px 16px;
+      border-radius: 50%;
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+    }
+
+    #scrollBtn:hover {
+      background-color: #574b90;
+    }
+  </style>
 </head>
 <body id="main-body">
-    <!-- FON MUSIQA -->
-    <audio autoplay loop>
-        <source src="{{ url_for('static', filename='bg-music-short.mp3') }}" type="audio/mpeg">
-    </audio>
 
-    <!-- Navbar -->
-    <header>
-        <div class="navbar">
-            <a href="/">🏠 Home</a>
-            <a href="/add">📝 Add Fanfic</a>
-            <a href="/about">❔ About</a>
-            <a href="/admin">🔐 Admin</a>
-        </div>
-    </header>
+  <!-- Background music -->
+  <audio autoplay loop>
+    <source src="{{ url_for('static', filename='bg-music-short.mp3') }}" type="audio/mpeg">
+  </audio>
 
-    <!-- Sahifa kontenti -->
-    <main class="container">
-        {% block content %}{% endblock %}
-    </main>
+  <!-- Navbar -->
+  <header>
+    <nav class="navbar">
+      <div class="logo">Melissa🌙Fan</div>
+      <div class="menu-toggle" onclick="toggleMenu()">☰</div>
+      <div class="nav-links" id="navLinks">
+        <a href="/">🏠 Home</a>
+        <a href="/add">📝 Add Fanfic</a>
+        <a href="/about">❔ About</a>
+        <a href="/admin">🔐 Admin</a>
+        <a href="/top-liked">🔥 Top Liked</a>
+      </div>
+    </nav>
+  </header>
 
-    <!-- Footer -->
-    <footer>
-        <p>© 2025 Melissa’s Fanfic World. Made with 🫶</p>
-    </footer>
+  <!-- PAGE CONTENT -->
+  <main style="padding: 2rem 1rem;">
+    {% block content %}{% endblock %}
+  </main>
 
-    <!-- KICHIK EMOJI YOG'ILISHI -->
-    <script>
-        document.addEventListener("DOMContentLoaded", function () {
-            const emojis = ["🌸", "✨", "💖", "🌟", "💫"];
-            const count = 25;
+  <!-- Footer -->
+  <footer>
+    <p>© 2025 Melissa’s Fanfic World. Made with 🫶</p>
+  </footer>
 
-            for (let i = 0; i < count; i++) {
-                let emoji = document.createElement("div");
-                emoji.classList.add("falling-emoji");
-                emoji.innerText = emojis[Math.floor(Math.random() * emojis.length)];
-                emoji.style.left = Math.random() * 100 + "vw";
-                emoji.style.animationDuration = 8 + Math.random() * 5 + "s";
-                emoji.style.animationDelay = Math.random() * 5 + "s";
-                document.body.appendChild(emoji);
-            }
+  <!-- Scroll to top button -->
+  <button onclick="scrollToTop()" id="scrollBtn" title="Go to top">⬆️</button>
 
-            const isDark = localStorage.getItem("dark-mode") === "true";
-            if (isDark) {
-                document.getElementById("main-body").classList.add("dark-mode");
-                document.querySelector(".dark-toggle").textContent = "☀️ light";
-            }
-        });
-    </script>
+  <!-- Dark mode toggle -->
+  <button class="dark-toggle" onclick="toggleDarkMode()">🌙 dark</button>
 
-    <!-- DARK MODE TUGMASI -->
-    <button class="dark-toggle" onclick="toggleDarkMode()">🌙 dark</button>
-    <script>
-        function toggleDarkMode() {
-            const body = document.getElementById('main-body');
-            const btn = document.querySelector('.dark-toggle');
-            body.classList.toggle('dark-mode');
-            const isDark = body.classList.contains('dark-mode');
-            btn.textContent = isDark ? "☀️ light" : "🌙 dark";
-            localStorage.setItem("dark-mode", isDark);
-        }
-    </script>
+  <!-- Falling emojis + Dark mode + Menu toggle + Scroll -->
+  <script>
+    document.addEventListener("DOMContentLoaded", function () {
+      const emojis = ["🌸", "✨", "💖", "🌟", "💫"];
+      const count = 25;
 
-    <!-- ✅ Swiper JS -->
-    <script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>
-    <script>
-        const swiper = new Swiper(".mySwiper", {
-            slidesPerView: 1,
-            spaceBetween: 20,
-            loop: true,
-            pagination: {
-                el: ".swiper-pagination",
-                clickable: true,
-            },
-            navigation: {
-                nextEl: ".swiper-button-next",
-                prevEl: ".swiper-button-prev",
-            },
-            breakpoints: {
-                640: {
-                    slidesPerView: 1,
-                },
-                768: {
-                    slidesPerView: 2,
-                },
-                1024: {
-                    slidesPerView: 3,
-                }
-            }
-        });
-    </script>
+      for (let i = 0; i < count; i++) {
+        let emoji = document.createElement("div");
+        emoji.classList.add("falling-emoji");
+        emoji.innerText = emojis[Math.floor(Math.random() * emojis.length)];
+        emoji.style.left = Math.random() * 100 + "vw";
+        emoji.style.animationDuration = 8 + Math.random() * 5 + "s";
+        emoji.style.animationDelay = Math.random() * 5 + "s";
+        document.body.appendChild(emoji);
+      }
+
+      const isDark = localStorage.getItem("dark-mode") === "true";
+      if (isDark) {
+        document.getElementById("main-body").classList.add("dark-mode");
+        document.querySelector(".dark-toggle").textContent = "☀️ light";
+      }
+    });
+
+    function toggleMenu() {
+      document.getElementById("navLinks").classList.toggle("show");
+    }
+
+    window.onscroll = function () {
+      const scrollBtn = document.getElementById("scrollBtn");
+      scrollBtn.style.display = (document.body.scrollTop > 100 || document.documentElement.scrollTop > 100) ? "block" : "none";
+    };
+
+    function scrollToTop() {
+      window.scrollTo({ top: 0, behavior: "smooth" });
+    }
+
+    function toggleDarkMode() {
+      const body = document.getElementById('main-body');
+      const btn = document.querySelector('.dark-toggle');
+      body.classList.toggle('dark-mode');
+      const isDark = body.classList.contains('dark-mode');
+      btn.textContent = isDark ? "☀️ light" : "🌙 dark";
+      localStorage.setItem("dark-mode", isDark);
+    }
+  </script>
+
+  <!-- Swiper (if used in children pages) -->
+  <script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>
+  <script>
+    const swiper = new Swiper(".mySwiper", {
+      slidesPerView: 1,
+      spaceBetween: 20,
+      loop: true,
+      pagination: { el: ".swiper-pagination", clickable: true },
+      navigation: { nextEl: ".swiper-button-next", prevEl: ".swiper-button-prev" },
+      breakpoints: {
+        640: { slidesPerView: 1 },
+        768: { slidesPerView: 2 },
+        1024: { slidesPerView: 3 }
+      }
+    });
+  </script>
+
 </body>
 </html>
-
-
-
-
-
-
-
-
