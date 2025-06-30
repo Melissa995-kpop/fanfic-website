@@ -5,25 +5,120 @@
     <h1>Welcome to Melissa's Fanfic World 🌌</h1>
     <p>Here you can read calming and romantic K-pop fanfics with soft background music.</p>
 
-    {% if fanfics %}
-        {% for fanfic in fanfics %}
-            <div class="fanfic-card">
-                <!-- Fanfic rasmi -->
-                {% if fanfic.image %}
-                <img src="{{ url_for('static', filename=fanfic.image) }}" alt="Fanfic rasmi" style="max-width:100%; border-radius: 12px; margin-bottom: 15px;">
-                {% endif %}
-
-                <h3>{{ fanfic.title }}</h3>
-                <p><strong>Author:</strong> {{ fanfic.author }}</p>
-                <p>{{ fanfic.description }}</p>
-                <a href="/fanfic/{{ fanfic.id }}">Read More →</a>
+    <!-- 🎠 Swiper Slayder (Top Fanfics) -->
+    <section class="top-fanfics">
+        <h2>🔥 Top Fanfics</h2>
+        <div class="swiper mySwiper">
+            <div class="swiper-wrapper">
+                {% for fanfic in trending_fanfics %}
+                <div class="swiper-slide">
+                    <div class="fanfic-card">
+                        {% if fanfic.image %}
+                        <img class="fanfic-cover" src="{{ url_for('static', filename=fanfic.image) }}" alt="Fanfic rasmi">
+                        {% endif %}
+                        <h3>{{ fanfic.title }}</h3>
+                        <p><strong>Author:</strong> {{ fanfic.author }}</p>
+                        <p>{{ fanfic.description[:100] }}...</p>
+                        <a href="/fanfic/{{ fanfic.id }}">Read More →</a>
+                    </div>
+                </div>
+                {% endfor %}
             </div>
-        {% endfor %}
-    {% else %}
-        <p>No fanfics found.</p>
-    {% endif %}
+
+            <!-- Navigatsiya tugmalari -->
+            <div class="swiper-button-next"></div>
+            <div class="swiper-button-prev"></div>
+            <div class="swiper-pagination"></div>
+        </div>
+    </section>
+
+    <!-- 📝 Barcha fanficlar ro‘yxati -->
+    <section class="all-fanfics">
+        <h2 style="margin-top: 40px;">📚 All Fanfics</h2>
+        {% if fanfics %}
+            {% for fanfic in fanfics %}
+                <div class="fanfic-card">
+                    {% if fanfic.image %}
+                    <img class="fanfic-cover" src="{{ url_for('static', filename=fanfic.image) }}" alt="Fanfic rasmi">
+                    {% endif %}
+                    <h3>{{ fanfic.title }}</h3>
+                    <p><strong>Author:</strong> {{ fanfic.author }}</p>
+                    <p>{{ fanfic.description }}</p>
+                    <a href="/fanfic/{{ fanfic.id }}">Read More →</a>
+                </div>
+            {% endfor %}
+        {% else %}
+            <p>No fanfics found.</p>
+        {% endif %}
+    </section>
 </div>
+
+<!-- 🎨 Animatsiya uchun CSS (style.css ichida bo‘lishi kerak) -->
+<style>
+.fanfic-card {
+  background: #fff;
+  border-radius: 12px;
+  overflow: hidden;
+  padding: 16px;
+  transition: transform 0.3s ease, box-shadow 0.3s ease, opacity 0.6s ease;
+  opacity: 0;
+  transform: translateY(20px);
+}
+.fanfic-card.show {
+  opacity: 1;
+  transform: translateY(0);
+}
+.fanfic-card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 8px 16px rgba(0,0,0,0.15);
+}
+</style>
+
+<!-- Swiper JS kutubxonasi -->
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@10/swiper-bundle.min.css">
+<script src="https://cdn.jsdelivr.net/npm/swiper@10/swiper-bundle.min.js"></script>
+
+<!-- Swiper sozlamalari -->
+<script>
+    const swiper = new Swiper(".mySwiper", {
+        slidesPerView: 1,
+        spaceBetween: 20,
+        loop: true,
+        pagination: {
+            el: ".swiper-pagination",
+            clickable: true,
+        },
+        navigation: {
+            nextEl: ".swiper-button-next",
+            prevEl: ".swiper-button-prev",
+        },
+        breakpoints: {
+            640: { slidesPerView: 1 },
+            768: { slidesPerView: 2 },
+            1024: { slidesPerView: 3 }
+        }
+    });
+</script>
+
+<!-- ✅ Fade-in animatsiya uchun JS -->
+<script>
+    const observer = new IntersectionObserver(entries => {
+        entries.forEach(entry => {
+            if (entry.isIntersecting) {
+                entry.target.classList.add('show');
+            }
+        });
+    }, { threshold: 0.1 });
+
+    document.querySelectorAll('.fanfic-card').forEach(card => {
+        observer.observe(card);
+    });
+</script>
 {% endblock %}
+
+
+
+
 
 
 

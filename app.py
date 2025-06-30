@@ -17,7 +17,8 @@ def save_fanfics(fanfics):
 @app.route('/')
 def index():
     fanfics = load_fanfics()
-    return render_template('index.html', fanfics=fanfics)
+    trending_fanfics = sorted(fanfics, key=lambda x: x.get("likes", 0), reverse=True)[:5]
+    return render_template('index.html', fanfics=fanfics, trending_fanfics=trending_fanfics)
 
 @app.route('/about')
 def about():
@@ -45,7 +46,7 @@ def add_fanfic():
             "content": request.form['content'],
             "category": request.form.get('category', 'Uncategorized'),
             "likes": 0,
-            "liked_by": [],  # NEW FIELD
+            "liked_by": [],
             "comments": [],
             "image": request.form.get('image', '') or ""
         }
@@ -55,7 +56,6 @@ def add_fanfic():
         return redirect('/')
     return render_template('add_fanfic.html')
 
-# ✅ LIKE faqat bir marta bosiladigan holga o‘zgartirildi
 @app.route('/like/<int:fanfic_id>', methods=['POST'])
 def like_fanfic(fanfic_id):
     fanfics = load_fanfics()
@@ -134,7 +134,6 @@ def admin_panel():
 
     return render_template('admin_login.html')
 
-# 🔁 Render uchun port
 if __name__ == '__main__':
     port = int(os.environ.get("PORT", 5000))
     app.run(host='0.0.0.0', port=port, debug=True)
