@@ -140,7 +140,31 @@ def admin_panel():
 
     return render_template('admin_login.html')
 
+# ✅ YANGI: QIDIRUV (SEARCH) ROUTE
+@app.route('/search')
+def search():
+    query = request.args.get('q', '').lower()
+    fanfics = load_fanfics()
+    if not query:
+        return render_template('search_results.html', query=query, results=[])
+
+    results = [
+        f for f in fanfics
+        if query in f['title'].lower() or query in f['author'].lower()
+    ]
+    return render_template('search_results.html', query=query, results=results)
+
+
+
+
+@app.route('/google96ebe91594cf55a0.html')
+def google_verify():
+    return app.send_static_file('google96ebe91594cf55a0.html')
+
+
+# 🔚 SERVERNI ISHLATISH
 if __name__ == '__main__':
     port = int(os.environ.get("PORT", 5000))
     app.run(host='0.0.0.0', port=port, debug=True)
+
 

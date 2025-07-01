@@ -2,19 +2,75 @@
 {% block title %}Top Liked Fanfics 🔥{% endblock %}
 
 {% block content %}
-  <h2 style="text-align:center; margin-bottom:1rem;">🔥 Most Liked Fanfics</h2>
-  <div style="display: grid; gap: 1.5rem; max-width: 900px; margin: 0 auto;">
+  <h2 style="text-align:center; margin-bottom:2rem;">🔥 Most Liked Fanfics</h2>
+
+  <div class="top-liked-grid">
     {% for fanfic in fanfics %}
-      <div style="border: 1px solid #ccc; padding: 1rem; border-radius: 8px; background-color: white;" class="{% if loop.index <= 3 %}top-fanfic{% endif %}">
+      <div class="fanfic-card {% if loop.index <= 3 %}top-fanfic{% endif %}">
+        {% if fanfic.image %}
+          <img class="fanfic-cover" src="{{ url_for('static', filename=fanfic.image) }}" alt="{{ fanfic.title }}">
+        {% endif %}
         <h3><a href="{{ url_for('fanfic_detail', fanfic_id=fanfic.id) }}">{{ fanfic.title }}</a></h3>
         <p><strong>Author:</strong> {{ fanfic.author }}</p>
         <p><strong>Likes:</strong> ❤️ {{ fanfic.likes }}</p>
         <p>{{ fanfic.description }}</p>
       </div>
     {% else %}
-      <p>No fanfics yet.</p>
+      <p>No fanfics found.</p>
     {% endfor %}
   </div>
+
+  <!-- 🧢 CSS: Grid va Animatsiyalar -->
+  <style>
+    .top-liked-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+      gap: 1.5rem;
+      max-width: 1100px;
+      margin: 0 auto;
+      padding: 0 1rem 2rem;
+    }
+    .fanfic-card {
+      background: #fff;
+      border-radius: 12px;
+      padding: 1rem;
+      box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+      transition: transform 0.3s ease, box-shadow 0.3s ease;
+      opacity: 0;
+      transform: translateY(20px);
+    }
+    .fanfic-card.show {
+      opacity: 1;
+      transform: translateY(0);
+    }
+    .fanfic-cover {
+      width: 100%;
+      height: 180px;
+      object-fit: cover;
+      border-radius: 8px;
+      margin-bottom: 10px;
+    }
+    .fanfic-card:hover {
+      transform: translateY(-6px);
+      box-shadow: 0 6px 16px rgba(0,0,0,0.15);
+    }
+  </style>
+
+  <!-- 🎬 Fade-in animatsiyasi -->
+  <script>
+    const observer = new IntersectionObserver(entries => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add('show');
+        }
+      });
+    }, { threshold: 0.1 });
+
+    document.querySelectorAll('.fanfic-card').forEach(card => {
+      observer.observe(card);
+    });
+  </script>
 {% endblock %}
+
 
 

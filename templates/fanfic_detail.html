@@ -5,20 +5,22 @@
     <h1>{{ fanfic.title }}</h1>
     <p><strong>Author:</strong> {{ fanfic.author }}</p>
 
-    <!-- Agar rasm mavjud bo‘lsa, uni ko‘rsatamiz -->
     {% if fanfic.image %}
     <img src="{{ url_for('static', filename=fanfic.image) }}" alt="Fanfic rasmi" style="max-width:100%; border-radius: 12px; margin: 20px 0;">
     {% endif %}
 
-    <p>{{ fanfic.content }}</p>
+    <!-- ⌨️ Typing Effect joyi -->
+    <div id="fanfic-text" style="white-space: pre-line; font-size: 1.1rem; line-height: 1.6;">
+        <p style="opacity: 0.6;">Loading story...</p>
+    </div>
 
-    <!-- ✅ LIKE tugmasi AJAX bilan (JavaScript) -->
+    <!-- ❤️ Like -->
     <div style="margin-top: 20px;">
         <button id="like-btn">❤️ Like</button>
         <span id="like-count">{{ fanfic.likes }} likes</span>
     </div>
 
-    <!-- Edit va Delete tugmalari -->
+    <!-- ⚙️ Admin controls -->
     <div style="margin-top: 30px;">
         <h3>Admin Controls ⚙️</h3>
         <form action="/edit/{{ fanfic.id }}" method="GET" style="display:inline;">
@@ -30,7 +32,7 @@
         </form>
     </div>
 
-    <!-- Comment form -->
+    <!-- 💬 Comments -->
     <div style="margin-top: 50px;">
         <h3>Comments 💬</h3>
         <form action="/comment/{{ fanfic.id }}" method="POST">
@@ -50,7 +52,7 @@
     </div>
 </div>
 
-<!-- ✅ LIKE tugmasi uchun JavaScript kod -->
+<!-- ❤️ Like tugmasi JS -->
 <script>
 document.getElementById("like-btn").addEventListener("click", function () {
     fetch("/like/{{ fanfic.id }}", {
@@ -68,6 +70,24 @@ document.getElementById("like-btn").addEventListener("click", function () {
     });
 });
 </script>
+
+<!-- 🧠 Typing Effect JS -->
+<script>
+const content = `{{ fanfic.content | replace('\n', '\\n') | replace('"', '\\"') }}`;
+const target = document.getElementById('fanfic-text');
+target.innerHTML = ''; // tozalaymiz
+
+let index = 0;
+function typeWriter() {
+    if (index < content.length) {
+        target.innerHTML += content.charAt(index);
+        index++;
+        setTimeout(typeWriter, 15); // tezlikni sozlash (15ms = yumshoq)
+    }
+}
+typeWriter();
+</script>
 {% endblock %}
+
 
 
