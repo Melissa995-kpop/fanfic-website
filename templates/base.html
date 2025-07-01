@@ -166,13 +166,28 @@
     <nav class="navbar">
       <div class="logo">Melissa🌙Fan</div>
       <div class="menu-toggle" onclick="toggleMenu()">☰</div>
-      <div class="nav-links" id="navLinks">
-        <a href="/">🏠 Home</a>
-        <a href="/add">📝 Add Fanfic</a>
-        <a href="/about">❔ About</a>
-        <a href="/admin">🔐 Admin</a>
-        <a href="/top-liked">🔥 Top Liked</a>
-      </div>
+      <ul class="nav-links" id="navLinks">
+        <li><a href="/">🏠 Home</a></li>
+        <li><a href="/add">📝 Add Fanfic</a></li>
+        <li><a href="/about">❔ About</a></li>
+        <li><a href="/admin">🔐 Admin</a></li>
+        <li><a href="/top-liked">🔥 Top Liked</a></li>
+      </ul>
+
+      <form action="/search" method="get" style="display: flex; gap: 4px; align-items: center;">
+        <input
+          type="text"
+          name="q"
+          placeholder="🔍 Search fanfics..."
+          style="padding: 6px 10px; border-radius: 8px; border: 1px solid #ccc; font-family: 'Josefin Sans';"
+          required
+        >
+        <button
+          type="submit"
+          style="padding: 6px 10px; border-radius: 8px; border: none; background-color: #6c63ff; color: white; cursor: pointer;">
+          🔍
+        </button>
+      </form>
     </nav>
   </header>
 
@@ -192,7 +207,7 @@
   <!-- Dark mode toggle -->
   <button class="dark-toggle" onclick="toggleDarkMode()">🌙 dark</button>
 
-  <!-- Falling emojis + Dark mode + Menu toggle + Scroll -->
+  <!-- Scripts -->
   <script>
     document.addEventListener("DOMContentLoaded", function () {
       const emojis = ["🌸", "✨", "💖", "🌟", "💫"];
@@ -238,21 +253,23 @@
     }
   </script>
 
-  <!-- Swiper (if used in children pages) -->
+  <!-- Swiper -->
   <script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>
   <script>
-    const swiper = new Swiper(".mySwiper", {
-      slidesPerView: 1,
-      spaceBetween: 20,
-      loop: true,
-      pagination: { el: ".swiper-pagination", clickable: true },
-      navigation: { nextEl: ".swiper-button-next", prevEl: ".swiper-button-prev" },
-      breakpoints: {
-        640: { slidesPerView: 1 },
-        768: { slidesPerView: 2 },
-        1024: { slidesPerView: 3 }
-      }
-    });
+    if (document.querySelector('.mySwiper')) {
+      const swiper = new Swiper(".mySwiper", {
+        slidesPerView: 1,
+        spaceBetween: 20,
+        loop: true,
+        pagination: { el: ".swiper-pagination", clickable: true },
+        navigation: { nextEl: ".swiper-button-next", prevEl: ".swiper-button-prev" },
+        breakpoints: {
+          640: { slidesPerView: 1 },
+          768: { slidesPerView: 2 },
+          1024: { slidesPerView: 3 }
+        }
+      });
+    }
   </script>
 
 </body>
